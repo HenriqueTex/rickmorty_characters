@@ -1,8 +1,7 @@
 <?php
 
-use App\Http\Controllers\Auth;
 use App\Http\Controllers\CharacterController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:api')->group(function () {
-    Route::resource('character', CharacterController::class)->only('index', 'show');
+    Route::resource('/characters', CharacterController::class)->only('index', 'show');
 });
 
-Route::post('/login', Auth::class);
+Route::post('/login', LoginController::class)->name('login');
