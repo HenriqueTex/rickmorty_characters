@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth;
+use App\Http\Controllers\CharacterController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,19 +16,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:api')->group(function () {
+    Route::resource('character', CharacterController::class)->only('index', 'show');
 });
 
-Route::post('/login', function (Request $request) {
-    $credentials = $request->only(['email', 'password']);
-
-    if (!$token = auth('api')->attempt($credentials)) {
-        abort(401, 'Unauthorized');
-    }
-
-    return response()->json([
-        'token' => $token,
-        'token_type' => 'bearer',
-    ]);
-});
+Route::post('/login', Auth::class);
