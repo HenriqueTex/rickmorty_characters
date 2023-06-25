@@ -19,7 +19,8 @@ Este projeto é uma api simples com um Crud dos personagens da série animada Ri
 5. Execute as migrations: `php artisan migrate`
 6. Execute as seeds: `php artisan db:seed`
 7. Crie o arquivo do banco de dados sqlite: `touch database/database.sqlite`
-8. Inicie o servidor local: `php artisan serve`
+8. Adicione a Jwt key : php artisan key:generate
+9. Inicie o servidor local: `php artisan serve`
 
 ## Uso
 
