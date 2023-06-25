@@ -22,6 +22,7 @@ class CharacterSeeder extends Seeder
 
         foreach ($data['results'] as $characterData) {
             $created = Carbon::parse($characterData['created'])->format('Y-m-d H:i:s');
+
             Character::create([
                 'name' => $characterData['name'],
                 'status' => $characterData['status'],
