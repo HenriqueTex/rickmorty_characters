@@ -190,8 +190,8 @@ class CharacterController extends Controller
             'episode' => 'required|array',
             'episode.*' => 'url',
         ]);
-
         if ($validator->fails()) {
+            dd($validator->errors());
             return response()->json([
                 'message' => 'Validation error',
                 'errors' => $validator->errors(),
@@ -275,13 +275,13 @@ class CharacterController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string',
-            'status' => 'required|string|in:Alive,Dead,unknown',
-            'species' => 'required|string',
+            'name' => 'sometimes|string',
+            'status' => 'sometimes|string|in:Alive,Dead,unknown',
+            'species' => 'sometimes|string',
             'type' => 'string|nullable',
-            'gender' => 'required|string|in:Female,Male,Genderless,unknown',
-            'image' => 'required|url',
-            'episode' => 'required|array',
+            'gender' => 'sometimes|string|in:Female,Male,Genderless,unknown',
+            'image' => 'sometimes|url',
+            'episode' => 'sometimes|array',
             'episode.*' => 'url',
         ]);
 
