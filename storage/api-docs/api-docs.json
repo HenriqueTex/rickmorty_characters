@@ -61,6 +61,127 @@
                         "bearerAuth": []
                     }
                 ]
+            },
+            "post": {
+                "tags": [
+                    "Characters"
+                ],
+                "summary": "Create Character",
+                "description": "Create a new character.",
+                "operationId": "9add7f48e7bda366ab508aeba92327a8",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "enum": [
+                                            "Dead",
+                                            "Alive",
+                                            "Unknown"
+                                        ]
+                                    },
+                                    "species": {
+                                        "type": "string"
+                                    },
+                                    "type": {
+                                        "type": "string"
+                                    },
+                                    "gender": {
+                                        "type": "string",
+                                        "enum": [
+                                            "Female",
+                                            "Male",
+                                            "Genderless",
+                                            "unknown"
+                                        ]
+                                    },
+                                    "origin": {
+                                        "properties": {
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "link": {
+                                                "type": "string",
+                                                "format": "url"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "location": {
+                                        "properties": {
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "link": {
+                                                "type": "string",
+                                                "format": "url"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "image": {
+                                        "type": "string"
+                                    },
+                                    "episode": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "url": {
+                                        "type": "string",
+                                        "format": "url"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Character created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Character"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/characters/{character}": {
@@ -97,6 +218,176 @@
                         "description": "Character not found"
                     }
                 }
+            },
+            "put": {
+                "tags": [
+                    "Characters"
+                ],
+                "summary": "Update Character",
+                "description": "Update an existing character.",
+                "operationId": "a216ea8cf3f0798815490366b99cfe89",
+                "parameters": [
+                    {
+                        "name": "character",
+                        "in": "path",
+                        "description": "Character ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "enum": [
+                                            "Dead",
+                                            "Alive",
+                                            "Unknown"
+                                        ]
+                                    },
+                                    "species": {
+                                        "type": "string"
+                                    },
+                                    "type": {
+                                        "type": "string"
+                                    },
+                                    "gender": {
+                                        "type": "string",
+                                        "enum": [
+                                            "Female",
+                                            "Male",
+                                            "Genderless",
+                                            "unknown"
+                                        ]
+                                    },
+                                    "origin": {
+                                        "properties": {
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "link": {
+                                                "type": "string",
+                                                "format": "url"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "location": {
+                                        "properties": {
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "link": {
+                                                "type": "string",
+                                                "format": "url"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "image": {
+                                        "type": "string"
+                                    },
+                                    "episode": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "url": {
+                                        "type": "string",
+                                        "format": "url"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Character updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Character"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Character not found"
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Characters"
+                ],
+                "summary": "Delete Character",
+                "description": "Delete a character.",
+                "operationId": "aaaa0df57bb5ec0438234a433b25e8b8",
+                "parameters": [
+                    {
+                        "name": "character",
+                        "in": "path",
+                        "description": "Character ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Character deleted successfully"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Character not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/login": {
@@ -115,7 +406,7 @@
                                 "properties": {
                                     "email": {
                                         "type": "string",
-                                        "example": "user@example.com"
+                                        "example": "test@example.com"
                                     },
                                     "password": {
                                         "type": "string",

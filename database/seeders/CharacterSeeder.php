@@ -10,13 +10,14 @@ use Carbon\Carbon;
 class CharacterSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Fill the table characters with data from https://rickandmortyapi.com.
      *
      * @return void
      */
     public function run()
     {
         $response = Http::get('https://rickandmortyapi.com/api/character');
+
         $data = $response->json();
 
         foreach ($data['results'] as $characterData) {
