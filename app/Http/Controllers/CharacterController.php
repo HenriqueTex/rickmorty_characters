@@ -190,8 +190,8 @@ class CharacterController extends Controller
             'episode' => 'required|array',
             'episode.*' => 'url',
         ]);
+
         if ($validator->fails()) {
-            dd($validator->errors());
             return response()->json([
                 'message' => 'Validation error',
                 'errors' => $validator->errors(),
@@ -327,7 +327,7 @@ class CharacterController extends Controller
      *     )
      * )
      */
-    public function delete(Character $character)
+    public function destroy(Character $character)
     {
         if (!$character) {
             return response()->json(['message' => 'Character not found'], 404);

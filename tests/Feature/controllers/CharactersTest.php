@@ -65,9 +65,17 @@ class CharacterControllerTest extends TestCase
             ]);
     }
 
-    /**
-     * Testa a criação de um novo personagem.
-     */
+    public function test_can_show_a_character_with_wrong_id()
+    {
+        $character = Character::factory()->create();
+
+        $nonexistingId = $character->id + 1;
+
+        $response = $this->get('api/characters/' . $nonexistingId, ['Authorization' => $this->bearerToken]);
+
+        $response->assertStatus(404);
+    }
+
     public function test_can_store_a_new_character()
     {
         $character = Character::factory()->raw();
@@ -139,5 +147,16 @@ class CharacterControllerTest extends TestCase
         $this->assertDatabaseMissing('characters', [
             'id' => $character->id,
         ]);
+    }
+
+    public function test_can_not_delete_a_character_with_wrong_id()
+    {
+        $character = Character::factory()->create();
+
+        $nonexistingId = $character->id + 1;
+
+        $response = $this->delete('api/characters/' . $nonexistingId, ['Authorization' => $this->bearerToken]);
+
+        $response->assertStatus(404);
     }
 }
